@@ -1,0 +1,352 @@
+%======================================================
+% One Page CV Template
+% Author : Alberto Ibarrondo
+% Github : https://github.com/ibarrond
+% License : MIT
+%======================================================
+
+\documentclass[a4paper,20pt]{article}
+
+\usepackage[empty]{fullpage}    % page margins
+\usepackage{changepage}         % sizing
+\usepackage{titlesec}           % Section titles
+\usepackage{enumitem}           % bullet lists
+\usepackage[pdftex]{hyperref}   % url mail/linkedin/gh
+\usepackage{fancyhdr}           % table
+\usepackage[document]{ragged2e} % \justify
+\usepackage{fontawesome}        % icons
+\usepackage{makecell}           % multiline table cells
+\usepackage{adjustbox}          % adjust table size
+\usepackage{microtype}          % better line breaking
+
+\hypersetup{hidelinks}          % no coloured boxes around links
+
+% Custom colours
+\usepackage[dvipsnames]{xcolor}
+\definecolor{myblue}{HTML}{096192}
+\definecolor{mygray}{HTML}{515151}
+\definecolor{midgray}{HTML}{717171}
+\definecolor{lightgray}{HTML}{999999}
+\definecolor{darkblue}{HTML}{414a7b}
+\definecolor{darkred}{HTML}{673838}
+
+% abs. pos. Load after xcolor
+\usepackage{tikzpagenodes}
+\usetikzlibrary{svg.path}       % SVG logos (pdflatex can't include .svg)
+
+%----------------------FORMATTING----------------------
+% clear all header and footer fields
+\pagestyle{fancy}
+\fancyhf{}             % No section name in header
+\fancyfoot{}           % No page number
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.530in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.45in}
+\addtolength{\textheight}{1in}
+\setlength{\tabcolsep}{0in}
+
+% bullet lists formatting
+\renewcommand{\labelitemii}{$\cdot$}
+
+%------------------------LOGOS-------------------------
+%+ LOGOS from image files. Example:
+%       \cvLogo{17pt}{sap_logo.jpg}     % Width, file in logos/
+\newcommand{\cvLogo}[2]{\includegraphics[width=#1]{logos/#2}}
+
+%+ LOGOS from SVG, redrawn in TikZ. Example:
+%       \arciumLogo{17pt}               % Width
+\definecolor{arciumpurple}{HTML}{6C44FC}
+\definecolor{arciumwhite}{HTML}{F1F1F1}
+\newsavebox{\arciumLogoBox}             % logos/arcium_logo.svg
+\newcommand{\arciumLogo}[1]{\resizebox{#1}{!}{\usebox{\arciumLogoBox}}}
+
+\definecolor{scholarA}{HTML}{4285F4}
+\definecolor{scholarB}{HTML}{356AC3}
+\definecolor{scholarC}{HTML}{A0C3FF}
+\definecolor{scholarD}{HTML}{76A7FA}
+\newsavebox{\scholarLogoBox}            % Google Scholar
+\newcommand{\scholarLogo}[1]{\resizebox{#1}{!}{\usebox{\scholarLogoBox}}}
+
+\AtBeginDocument{%
+  \sbox{\arciumLogoBox}{\begin{tikzpicture}[yscale=-1]
+    \fill[arciumpurple] (63.743pt,64.377pt) circle[radius=63.6pt];
+    \fill[arciumwhite] svg{M106.243 90.1061H85.2091L61.0275 40.5764C59.508 37.5036 54.7976 37.3317 53.1696 40.6623L29.1182 90.0846H21.0432L47.287 36.4722C50.7384 29.1018 63.3936 29.4027 67.1055 36.4722L89.811 83.0366H94.6734L71.5988 35.892C70.6003 34.087 70.0793 32.7118 68.4079 31.2506C68.4079 31.2506 76.7651 30.3266 79.6304 35.7416L106.243 90.1061Z};
+    \fill[arciumwhite] svg{M61.0709 50.3534L42.0122 90.0846H33.9155L56.2086 43.993C57.1854 42.0161 56.9683 41.9946 57.9234 43.95L61.0709 50.3534Z};
+  \end{tikzpicture}}%
+  \sbox{\scholarLogoBox}{\begin{tikzpicture}[yscale=-1]
+    \fill[scholarA] svg{M256 411.12L0 202.667L256 0Z};
+    \fill[scholarB] svg{M256 411.12L512 202.667L256 0Z};
+    \fill[scholarC] (256pt,362.667pt) circle[radius=149.333pt];
+    \fill[scholarD] svg{M121.037 298.667C145.005 248.214 196.429 213.333 256 213.333C315.57 213.333 366.995 248.213 390.963 298.667Z};
+  \end{tikzpicture}}%
+}
+
+%------------------CUSTOM COMMANDS---------------------
+%················> Header commands <··················%
+%+mail
+\newcommand{\mailto}[1]{
+    \href{mailto:#1}{{\color{mygray}\footnotesize {\color{darkred}\faEnvelope}~\,~#1}}}
+%+linkedin
+\newcommand{\linkedin}[1]{
+    \href{https://www.linkedin.com/in/#1}{{\color{mygray}\footnotesize {\color{darkblue}\faLinkedin}~~~linkedin.com/in/#1}}}
+%+github
+\newcommand{\github}[1]{
+    \href{https://github.com/#1}{{\color{mygray}\footnotesize {\color{black}\faGithub} ~~github.com/#1}}}
+%+google scholar (user ID from the profile URL)
+\newcommand{\scholar}[1]{
+    \href{https://scholar.google.com/citations?user=#1}{{\color{mygray}\footnotesize \raisebox{-0.1em}{\scholarLogo{0.9em}}~~Google Scholar}}}
+%+ExecutiveSummary
+\newcommand{\summary}[1]{{\fontfamily{cmtt}\selectfont #1}}
+
+%··········> Body commands & environments <···········%
+%+SECTIONS. Example:
+%       \section{Education}
+%         \begin{cvSection}
+%           ...
+%         \end{cvSection}
+\titleformat{\section}{
+  \vspace{-10pt}\scshape\raggedright\large\color{myblue}
+}{}{0em}{}[\color{myblue}\titlerule \vspace{-6pt}]
+\newenvironment{cvSection}
+    {\begin{itemize}[leftmargin=0pc]}
+    {\end{itemize}}
+
+%+ITEM TITLES, with an optional logo placed under the title, in the
+% left margin of the description. Example:
+%       \cvItemTitle[\cvLogo{17pt}{jpmorgan_logo.jpg}]
+%           {Data Analyst}{07/2015 -- 12/2019}
+%           {JP Morgan}{France}
+\newcommand{\cvItemTitle}[5][]{
+  \vspace{-1pt}\item[]
+    \begin{tikzpicture}[overlay]
+      \node[anchor=north, inner sep=0pt] at (13pt,-4pt) {#1};
+    \end{tikzpicture}%
+    \begin{tabular*}{0.985\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#2} - \textit{#4} (\textit{#5}) & #3 \\
+    \end{tabular*}
+}
+
+%+ITEM DESCRIPTIONS as bullet lists. Example:
+%       \cvItemTitle{...}{...}{...}{...}
+%       \begin{cvBulletList}
+%           \item Carried out analysis over tax data
+%           \item Led a group of 5 analysts
+%       \end{cvBulletList}
+\newenvironment{cvBulletList}
+    {\vspace{-2pt}
+    \begin{adjustwidth}{21pt}{8pt}
+     \begin{itemize}[]
+        \setlength\itemsep{0pt}}
+    {\end{itemize}
+    \end{adjustwidth}}
+
+%+ITEM DESCRIPTIONS as paragraphs. Example:
+%       \cvItemTitle{...}{...}{...}{...}
+%       \begin{cvParagraph}
+%           Carried out analysis over tax data. Led a group of 5 analysts
+%       \end{cvParagraph}
+\newenvironment{cvParagraph}
+      {\vspace{-9pt}\justify\begin{adjustwidth}{32pt}{8pt}}
+      {\end{adjustwidth}}
+
+%+SKILLS TABLE. Example:
+%       \begin{cvSkillsTable}
+%            Soft Skills &
+%                  \keySkill{Project Management},
+%                  \majorSkill{Leadership},
+%                  \minorSkill{Cross-cultural communication}.
+%            //
+%       \end{cvSkillsTable}
+\newenvironment{cvSkillsTable}
+    {\begin{table}[h!]
+        \centering
+        \begin{adjustbox}{max width=.97\textwidth}
+          \begin{tabular}{>{\itshape}l>{\rule{0pt}{1.3em}}l}}
+    {     \end{tabular}%
+        \end{adjustbox}
+     \end{table}}
+
+
+% Skills formating
+\newcommand{\gray}[1]{\color{midgray}#1}
+\newcommand{\keySkill}[1]{{\textbf{#1}}}
+\newcommand{\majorSkill}[1]{{\normalfont#1}}
+\newcommand{\minorSkill}[1]{{\color{midgray}#1}}
+
+%+PUBLICATIONS, venue on the left. Example:
+%       \begin{cvPubList}
+%           \cvPub{PETS'23}{Paper title}{A. Author, \me, C. Author}
+%       \end{cvPubList}
+\newenvironment{cvPubList}
+    {\begin{itemize}[leftmargin=7.4em, labelwidth=7em, labelsep=0.4em,
+                     align=left, itemsep=0pt, parsep=0pt, topsep=2pt]
+     \raggedright}
+    {\end{itemize}}
+\newcommand{\cvPub}[3]{\item[\small\textbf{#1}] {\small``#2'', {\footnotesize\textit{#3}}}}
+\newcommand{\me}{\textbf{A.~Ibarrondo}}
+\hyphenation{Ibarrondo Chabanne Despiegel Mitrokotsa Chouchane Todisco}
+
+%+Link to the full publication list, right-aligned in a section title
+\newcommand{\scholarLink}[1]{\hspace{\fill}%
+    \href{https://scholar.google.com/citations?user=#1}{{\normalfont\footnotesize\color{mygray}%
+    \raisebox{-0.15em}{\scholarLogo{1.1em}}~~full list on Google Scholar}}}
+
+
+%------------------------------------------------------
+%-------------------------BODY-------------------------
+%------------------------------------------------------
+\begin{document}
+
+
+%·····················> Header <······················%
+\begin{tabular*}{\textwidth}{l@{\extracolsep{.03\textwidth}}l}
+  \textbf{{\LARGE Alberto Ibarrondo}}
+  & \mailto{ibarrondo.alberto@gmail.com} \\
+  & \linkedin{albertoibarrondo} \\
+  \summary{~Applied cryptographer (PhD) in MPC, FHE, ZKP \& threshold crypto.}
+  & \github{ibarrond} \\
+  \summary{~From papers to production code. Trilingual, strong communicator.}
+  & \scholar{hl-5WRQAAAAJ} \\
+\end{tabular*}
+
+
+%···················> Experience <····················%
+\section{Experience}
+  \begin{cvSection}
+    \cvItemTitle[\arciumLogo{16pt}]
+      {Cryptographer}{07/2024 -- Present}
+      {Arcium}{Remote, France}
+      \begin{cvBulletList}
+        \item Design and implement efficient MPC protocols for Arcium's decentralized confidential computing network, from full-threshold semi-honest to dishonest-majority malicious security; co-authored Cerberus.
+        \item State-of-the-art preprocessing: VOLE from LPN variants, OLEs from distributed DPFs with expansion.
+        \item Identifiable abort based on BDOZ, pinpointing and excluding misbehaving parties.
+        \item Passed a Kudelski Security audit with no major findings.
+      \end{cvBulletList}
+
+    \cvItemTitle[\cvLogo{16pt}{copper.jpeg}]
+      {Senior Cryptographic Engineer}{05/2023 -- 07/2024}
+      {Copper.co}{Remote, France}
+      \begin{cvBulletList}
+        \item Designed and adapted threshold signature schemes (t-ECDSA, t-EdDSA, t-BLS) for digital asset custody.
+        \item Turned research papers into specifications, pseudocode and secure, production-grade Go code.
+        \item Co-designed a complete MPC framework packaging multiple primitives for use by non-cryptographers.
+        \item Passed a Trail of Bits audit with no major findings. Worked with academia and client-side cryptographers.
+      \end{cvBulletList}
+
+    \cvItemTitle[\cvLogo{17pt}{idemia_logo.jpg}]
+      {Cryptographic Engineer}{01/2020 -- 04/2023}
+      {IDEMIA}{France}
+      \begin{cvParagraph}
+        Industrial PhD with EURECOM: designed, implemented and benchmarked privacy-preserving face, iris and fingerprint recognition based on FHE, MPC and functional encryption, without loss of accuracy. Published at PoPETs, AsiaCCS, CODASPY, CANS and IH\&MMSec; authored three patents.
+      \end{cvParagraph}
+
+    \cvItemTitle[\cvLogo{17pt}{altran_logo.jpg}]
+      {Data Scientist}{09/2018 -- 12/2019}
+      {Altran}{France}
+      \begin{cvParagraph}
+        Built ML and BI products for the travel industry at Amadeus, from prototype to production. Earlier, developed deep learning tools for computer vision and NLP.
+      \end{cvParagraph}
+
+    \cvItemTitle[\cvLogo{20pt}{sap_logo.jpg}]
+      {Researcher in Security for Deep Learning}{03/2018 -- 08/2018}
+      {SAP Labs}{France}
+      \begin{cvParagraph}
+          Master's thesis applying FHE (CKKS) to CNNs, protecting the model, inputs and inference results. Built a PoC from scratch for a real municipal video surveillance use case. Published at SECRYPT'18 and DPM'18.
+      \end{cvParagraph}
+  \end{cvSection}
+
+
+%···················> Education <·····················%
+\section{Education}
+
+  \begin{cvSection}
+    \cvItemTitle[\cvLogo{16pt}{sorbonne_logo.png}]
+      {PhD in Applied Cryptography}{01/2020 -- 03/2023}
+      {Sorbonne Université}{France}
+      \begin{cvParagraph}
+        Industrial PhD with IDEMIA, supervised by Melek \"Onen (EURECOM). Thesis: ``Privacy-Preserving Biometric Recognition Systems with Advanced Cryptographic Techniques''.
+      \end{cvParagraph}
+
+    \cvItemTitle[\cvLogo{16pt}{telecomparis_logo.png}]
+      {Diplôme d'Ingénieur (B.Sc. \& M.Sc.), Security and Data Science}{2016 -- 2018}
+      {Télécom Paris}{France}
+      \begin{cvParagraph}
+        GPA 4.00/4.00 at the EURECOM campus. Master's thesis on homomorphic encryption for deep learning, awarded Best Internship of the IMT network (out of 5,000+ graduate students).
+      \end{cvParagraph}
+
+    \cvItemTitle[\cvLogo{18pt}{upm_logo.jpg}]
+      {B.Sc. \& M.Sc. in Telecommunications Engineering}{2010 -- 2016}
+      {Universidad Politécnica de Madrid}{Spain}
+      \begin{cvParagraph}
+        Core curriculum in telecommunication systems, networks, electronics, software and signal processing. Bachelor's thesis on an embedded monitoring and control system, graded 9/10.
+      \end{cvParagraph}
+  \end{cvSection}
+
+
+%·····················> Skills <······················%
+\section{Skills}
+
+\vspace{-12pt}
+\begin{cvSkillsTable}
+        Cryptography~~& \makecell[l]{% makecell for multiline
+            \keySkill{MPC \{SS, RSS, FSS, GC\}},
+            \keySkill{Threshold Signatures \{t-ECDSA, t-EdDSA, t-BLS\}}, \\
+            \keySkill{FHE \{BFV, CKKS, TFHE\}},
+            \majorSkill{Zero-Knowledge Proofs},
+            \majorSkill{Functional Encryption},
+            \majorSkill{Security Proofs}.
+        }\\
+        Prog. Lang. &
+            \keySkill{Rust},
+            \keySkill{Go},
+            \keySkill{Python},
+            \majorSkill{C++},
+            \majorSkill{C},
+            \minorSkill{Cython}.
+        \\
+        Tools      &
+            \majorSkill{Git},
+            \majorSkill{Linux \& Bash},
+            \majorSkill{Docker},
+            \majorSkill{CI/CD},
+            \majorSkill{Pyfhel (author)},
+            \minorSkill{Microsoft SEAL},
+            \minorSkill{PyTorch}.
+        \\
+        Domains    &
+            \majorSkill{Decentralized networks},
+            \majorSkill{Digital asset custody},
+            \majorSkill{Privacy-preserving ML},
+            \majorSkill{Biometrics}.
+        \\
+        Languages  &
+            Spanish (native),
+            English (full professional),
+            French (full professional).
+        \\
+        Variety    &
+            Volunteering (elderly, junior oncology patients),
+            bouldering,
+            exceptional chef of ``Tortilla de patata''.
+        \\
+\end{cvSkillsTable}
+\vspace{-8pt}
+
+
+%··················> Publications <···················%
+\section{Selected Publications\texorpdfstring{\scholarLink{hl-5WRQAAAAJ}}{}}
+  \begin{cvPubList}
+    \cvPub{Arcium'26}{Cerberus: Secure Computation for Zero-Trust Environments}{N.~Le~Bel, \me, S.~Carpov et al.}
+    \cvPub{AsiaCCS'24}{Nomadic: Normalising Maliciously-Secure Distance with Cosine Similarity for Two-Party Biometric Authentication}{N.~Cheng, M.~\"Onen, A.~Mitrokotsa, O.~Chouchane, M.~Todisco, \me}
+    \cvPub{PoPETs'23}{Funshade: Function Secret Sharing for Two-Party Secure Thresholded Distance Evaluation}{\me, H.~Chabanne, M.~\"Onen}
+    \cvPub{CODASPY'23}{Grote: Group Testing for Privacy-Preserving Face Identification}{\me, H.~Chabanne, V.~Despiegel, M.~\"Onen}
+    \cvPub{WAHC'21}{Pyfhel: Python for Homomorphic Encryption Libraries}{\me, A.~Viand}
+    \cvPub{IH\&MMSec'21}{Banners: Binarized Neural Networks with Replicated Secret Sharing}{\me, H.~Chabanne, M.~\"Onen}
+  \end{cvPubList}
+
+\end{document}
