@@ -5,7 +5,7 @@
 % License : MIT
 %======================================================
 
-\documentclass[a4paper,20pt]{article}
+\documentclass[a4paper]{article}
 
 \usepackage[empty]{fullpage}    % page margins
 \usepackage{changepage}         % sizing
@@ -33,6 +33,9 @@
 % abs. pos. Load after xcolor
 \usepackage{tikzpagenodes}
 \usetikzlibrary{svg.path}       % SVG logos (pdflatex can't include .svg)
+
+% footer size
+\setlength{\footskip}{3.7pt}
 
 %----------------------FORMATTING----------------------
 % clear all header and footer fields
@@ -178,6 +181,9 @@
 \newcommand{\majorSkill}[1]{{\normalfont#1}}
 \newcommand{\minorSkill}[1]{{\color{midgray}#1}}
 
+
+\newcommand{\link}[2]{{\texttt{\color{darkblue}\href{#1}{#2}}}}
+
 %+PUBLICATIONS, venue on the left. Example:
 %       \begin{cvPubList}
 %           \cvPub{PETS'23}{Paper title}{A. Author, \me, C. Author}
@@ -208,7 +214,7 @@
   \textbf{{\LARGE Alberto Ibarrondo}}
   & \mailto{ibarrondo.alberto@gmail.com} \\
   & \linkedin{albertoibarrondo} \\
-  \summary{~Applied cryptographer (PhD) in MPC, FHE, ZKP \& threshold crypto.}
+  \summary{~Applied cryptographer (PhD) in MPC, threshold crypto, ZKP \& FHE.}
   & \github{ibarrond} \\
   \summary{~From papers to production code. Trilingual, strong communicator.}
   & \scholar{hl-5WRQAAAAJ} \\
@@ -222,41 +228,41 @@
       {Cryptographer}{07/2024 -- Present}
       {Arcium}{Remote, France}
       \begin{cvBulletList}
-        \item Design and implement efficient MPC protocols for Arcium's decentralized confidential computing network, from full-threshold semi-honest to dishonest-majority malicious security; co-authored Cerberus.
-        \item State-of-the-art preprocessing: VOLE from LPN variants, OLEs from distributed DPFs with expansion.
-        \item Identifiable abort based on BDOZ, pinpointing and excluding misbehaving parties.
-        \item Passed a Kudelski Security audit with no major findings.
+        \item Design and implement efficient general-purpose MPC protocols for a decentralized confidential computing network over the Solana blockchain, from full-threshold semi-honest to dishonest-majority malicious security.
+        \item Built state-of-the-art preprocessing: VOLE from efficient LPN variants, OLEs from distributed DPFs.
+        \item Optimized protocols for bulletproof ZKPs, for distributed AES, and for GPU-aided private LLM inference.
+        \item Wrote the Cerberus whitepaper, working with first-row academics.
+        \item  Passed a Kudelski Security audit with no major findings.
       \end{cvBulletList}
 
     \cvItemTitle[\cvLogo{16pt}{copper.jpeg}]
-      {Senior Cryptographic Engineer}{05/2023 -- 07/2024}
+      {Senior Cryptographic Engineer}{04/2023 -- 07/2024}
       {Copper.co}{Remote, France}
       \begin{cvBulletList}
-        \item Designed and adapted threshold signature schemes (t-ECDSA, t-EdDSA, t-BLS) for digital asset custody.
-        \item Turned research papers into specifications, pseudocode and secure, production-grade Go code.
-        \item Co-designed a complete MPC framework packaging multiple primitives for use by non-cryptographers.
-        \item Passed a Trail of Bits audit with no major findings. Worked with academia and client-side cryptographers.
+        \item Designed and adapted threshold signature schemes (t-ECDSA, t-EdDSA, t-BLS) for digital asset custody, co-authoring a complete MPC framework for use by non-cryptographers with strong security (UC model).
+        \item Led the writing of a detailed cryptographic specification of the framework with matching  pseudocode.
+        \item Turned the specification into secure, production-grade Go code \link{https://github.com/bronlabs/bron-crypto/}{(repo)}, audited by Trail of Bits.
       \end{cvBulletList}
 
     \cvItemTitle[\cvLogo{17pt}{idemia_logo.jpg}]
-      {Cryptographic Engineer}{01/2020 -- 04/2023}
-      {IDEMIA}{France}
+      {Cryptographic Engineer}{01/2020 -- 03/2023}
+      {IDEMIA}{Remote, France}
       \begin{cvParagraph}
-        Industrial PhD with EURECOM: designed, implemented and benchmarked privacy-preserving face, iris and fingerprint recognition based on FHE, MPC and functional encryption, without loss of accuracy. Published at PoPETs, AsiaCCS, CODASPY, CANS and IH\&MMSec; authored three patents.
+        Designed, implemented and optimized privacy-preserving face, iris and fingerprint recognition based on MPC, FHE and functional encryption. Authored three patents, and incorporated them into IDEMIA's products.
       \end{cvParagraph}
 
     \cvItemTitle[\cvLogo{17pt}{altran_logo.jpg}]
       {Data Scientist}{09/2018 -- 12/2019}
       {Altran}{France}
       \begin{cvParagraph}
-        Built ML and BI products for the travel industry at Amadeus, from prototype to production. Earlier, developed deep learning tools for computer vision and NLP.
+        Built and engineered ML and BI products for the travel industry at Amadeus, from prototype to production, handling daily flows of GB. 
       \end{cvParagraph}
 
     \cvItemTitle[\cvLogo{20pt}{sap_logo.jpg}]
       {Researcher in Security for Deep Learning}{03/2018 -- 08/2018}
       {SAP Labs}{France}
       \begin{cvParagraph}
-          Master's thesis applying FHE (CKKS) to CNNs, protecting the model, inputs and inference results. Built a PoC from scratch for a real municipal video surveillance use case. Published at SECRYPT'18 and DPM'18.
+           Applied FHE (CKKS) to CNNs, protecting the model, inputs and inference results. Built a PoC from scratch with GPUs for a real municipal video surveillance use case. Published at SECRYPT'18 and DPM'18.
       \end{cvParagraph}
   \end{cvSection}
 
@@ -266,24 +272,24 @@
 
   \begin{cvSection}
     \cvItemTitle[\cvLogo{16pt}{sorbonne_logo.png}]
-      {PhD in Applied Cryptography}{01/2020 -- 03/2023}
+      {PhD in Applied Cryptography}{2020 -- 2023}
       {Sorbonne Université}{France}
       \begin{cvParagraph}
-        Industrial PhD with IDEMIA, supervised by Melek \"Onen (EURECOM). Thesis: ``Privacy-Preserving Biometric Recognition Systems with Advanced Cryptographic Techniques''.
+        Thesis titled ``Privacy-Preserving Biometric Recognition Systems with Advanced Cryptographic Techniques''. Industrial PhD, supervised by Melek \"Onen (EURECOM) \& Hervé Chabanne (IDEMIA).  Published 6 papers at PoPETs, AsiaCCS, CODASPY, CANS and IH\&MMSec, accompanied by open source code.
       \end{cvParagraph}
 
     \cvItemTitle[\cvLogo{16pt}{telecomparis_logo.png}]
-      {Diplôme d'Ingénieur (B.Sc. \& M.Sc.), Security and Data Science}{2016 -- 2018}
+      {Diplôme d'Ingénieur (B.Sc. + M.Sc.) in Security and Data Science}{2016 -- 2018}
       {Télécom Paris}{France}
       \begin{cvParagraph}
-        GPA 4.00/4.00 at the EURECOM campus. Master's thesis on homomorphic encryption for deep learning, awarded Best Internship of the IMT network (out of 5,000+ graduate students).
+        GPA 4.00/4.00 at the EURECOM campus. Master's thesis on homomorphic encryption for deep learning, awarded Best IMT Internship (out of 5,000+ candidates). Author and maintainer of Pyfhel, an open-source FHE library (500+ stars on GitHub).
       \end{cvParagraph}
 
     \cvItemTitle[\cvLogo{18pt}{upm_logo.jpg}]
       {B.Sc. \& M.Sc. in Telecommunications Engineering}{2010 -- 2016}
       {Universidad Politécnica de Madrid}{Spain}
       \begin{cvParagraph}
-        Core curriculum in telecommunication systems, networks, electronics, software and signal processing. Bachelor's thesis on an embedded monitoring and control system, graded 9/10.
+        Core curriculum in telecommunication systems, networks, electronics, software and signal processing. Bachelor's thesis on an embedded radar monitoring and control system, built during a 1.5 year research scholarship.
       \end{cvParagraph}
   \end{cvSection}
 
@@ -294,19 +300,18 @@
 \vspace{-12pt}
 \begin{cvSkillsTable}
         Cryptography~~& \makecell[l]{% makecell for multiline
-            \keySkill{MPC \{SS, RSS, FSS, GC\}},
-            \keySkill{Threshold Signatures \{t-ECDSA, t-EdDSA, t-BLS\}}, \\
-            \keySkill{FHE \{BFV, CKKS, TFHE\}},
-            \majorSkill{Zero-Knowledge Proofs},
-            \majorSkill{Functional Encryption},
-            \majorSkill{Security Proofs}.
+            \keySkill{MPC \{Shamir/VSS, BDOZ, SPDZ, OT/VOLE/OLE, GC, \dots\}},
+            \keySkill{Threshold Signing \{t-ECDSA, t-EdDSA, t-BLS\}}, \\
+            \majorSkill{Zero-Knowledge Proofs \{Sigma proofs, Bulletproofs, Plonk\}},
+            \majorSkill{Cryptographic Spec \& Formal Verification},
+            \minorSkill{FHE \{BFV, CKKS, TFHE\}}.
         }\\
         Prog. Lang. &
             \keySkill{Rust},
             \keySkill{Go},
-            \keySkill{Python},
             \majorSkill{C++},
             \majorSkill{C},
+            \majorSkill{Python},
             \minorSkill{Cython}.
         \\
         Tools      &
@@ -329,11 +334,6 @@
             English (full professional),
             French (full professional).
         \\
-        Variety    &
-            Volunteering (elderly, junior oncology patients),
-            bouldering,
-            exceptional chef of ``Tortilla de patata''.
-        \\
 \end{cvSkillsTable}
 \vspace{-8pt}
 
@@ -342,9 +342,10 @@
 \section{Selected Publications\texorpdfstring{\scholarLink{hl-5WRQAAAAJ}}{}}
   \begin{cvPubList}
     \cvPub{Arcium'26}{Cerberus: Secure Computation for Zero-Trust Environments}{N.~Le~Bel, \me, S.~Carpov et al.}
+    \cvPub{Copper'25}{Cryptographic Specification of Bron~~ }{N.~Le~Bel, \me, S.~Carpov et al.}
     \cvPub{AsiaCCS'24}{Nomadic: Normalising Maliciously-Secure Distance with Cosine Similarity for Two-Party Biometric Authentication}{N.~Cheng, M.~\"Onen, A.~Mitrokotsa, O.~Chouchane, M.~Todisco, \me}
-    \cvPub{PoPETs'23}{Funshade: Function Secret Sharing for Two-Party Secure Thresholded Distance Evaluation}{\me, H.~Chabanne, M.~\"Onen}
-    \cvPub{CODASPY'23}{Grote: Group Testing for Privacy-Preserving Face Identification}{\me, H.~Chabanne, V.~Despiegel, M.~\"Onen}
+    \cvPub{PoPETs'23}{Funshade: Function Secret Sharing for Two-Party Secure Thresholded Distance}{\me et. al.}
+    \cvPub{CODASPY'23}{Grote: Group Testing for Privacy-Preserving Face Identification}{\me et. al.}
     \cvPub{WAHC'21}{Pyfhel: Python for Homomorphic Encryption Libraries}{\me, A.~Viand}
     \cvPub{IH\&MMSec'21}{Banners: Binarized Neural Networks with Replicated Secret Sharing}{\me, H.~Chabanne, M.~\"Onen}
   \end{cvPubList}
